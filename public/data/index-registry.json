@@ -1,0 +1,14 @@
+{
+  "indices": [
+    {
+      "id": "nifty50",
+      "name": "NIFTY 50",
+      "ticker": "^NSEI",
+      "currency": "INR",
+      "returnBasis": "price-return",
+      "dataFile": "nifty50.json",
+      "startDate": "2007-09-17",
+      "lastUpdated": "2026-08-19"
+    }
+  ]
+}
