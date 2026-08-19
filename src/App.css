@@ -495,3 +495,91 @@ table.data-table tbody tr.highlighted {
   gap: 4px;
   flex-wrap: wrap;
 }
+
+/* ---------- Condition explorer ---------- */
+.condition-explorer {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.condition-copy {
+  color: var(--text-secondary);
+  font-size: 12.5px;
+  margin-bottom: 14px;
+}
+
+.condition-builder {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.condition-row {
+  display: grid;
+  grid-template-columns: 64px minmax(180px, 1fr) 76px minmax(120px, 180px) auto;
+  gap: 8px;
+  align-items: center;
+}
+
+.condition-and {
+  color: var(--text-tertiary);
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.08em;
+}
+
+.condition-operator {
+  text-align: center;
+}
+
+.condition-input {
+  width: 100%;
+  background: var(--bg-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text-primary);
+  font-family: var(--mono);
+  font-size: 12px;
+  padding: 6px 10px;
+}
+
+.condition-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+  flex-wrap: wrap;
+}
+
+.condition-summary {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.table-wrap {
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+.table-link {
+  background: none;
+  border: 0;
+  color: var(--positive);
+  cursor: pointer;
+  font-family: var(--mono);
+  padding: 0;
+}
+
+.horizon-pills.compact .pill {
+  padding: 4px 8px;
+}
+
+@media (max-width: 900px) {
+  .condition-row,
+  .condition-summary {
+    grid-template-columns: 1fr;
+  }
+
+  .condition-and {
+    margin-top: 4px;
+  }
+}

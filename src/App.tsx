@@ -9,6 +9,7 @@ import { PeriodExplorer } from "./components/PeriodExplorer";
 import { PriceChart } from "./components/PriceChart";
 import { Methodology } from "./components/Methodology";
 import { SampleDataBanner } from "./components/SampleDataBanner";
+import { ConditionExplorer } from "./components/ConditionExplorer";
 import { ReturnDistributionChart } from "./charts/ReturnDistributionChart";
 import { RollingReturnTimeSeries } from "./charts/RollingReturnTimeSeries";
 import { DrawdownDistributionChart } from "./charts/DrawdownDistributionChart";
@@ -24,6 +25,7 @@ function App() {
   const [returnMode, setReturnMode] = useState<ReturnMode>("cumulative");
   const [selectedWindow, setSelectedWindow] = useState<RollingWindow | null>(null);
   const [expandedChartId, setExpandedChartId] = useState<string | null>(null);
+  const [activeSection, setActiveSection] = useState<"dashboard" | "conditions">("dashboard");
 
   useEffect(() => {
     if (indices && indices.length > 0 && !selectedIndexId) {
@@ -86,7 +88,26 @@ function App() {
       <div className="dashboard">
         {isSample && <SampleDataBanner />}
 
-        {analysis.windows.length === 0 ? (
+        <div className="section-nav">
+          <button
+            className={`pill ${activeSection === "dashboard" ? "active" : ""}`}
+            type="button"
+            onClick={() => setActiveSection("dashboard")}
+          >
+            Dashboard
+          </button>
+          <button
+            className={`pill ${activeSection === "conditions" ? "active" : ""}`}
+            type="button"
+            onClick={() => setActiveSection("conditions")}
+          >
+            Condition Explorer
+          </button>
+        </div>
+
+        {activeSection === "conditions" ? (
+          <ConditionExplorer bars={bars} />
+        ) : analysis.windows.length === 0 ? (
           <div className="panel state-message">
             Not enough history yet for a {horizon.label} horizon ({horizon.tradingDays} trading days needed,{" "}
             {bars.length} available).
