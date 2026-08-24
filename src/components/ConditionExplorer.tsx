@@ -20,8 +20,8 @@ const OPERATORS: ConditionOperator[] = [">", ">=", "<", "<=", "=", "!="];
 
 const DEFAULT_CONDITIONS: ConditionRule[] = [
   { id: "volume-p90", variable: "volumePercentile", operator: ">", value: 90 },
-  { id: "return-minus-2", variable: "returnPct", operator: "<", value: -0.02 },
-  { id: "clv-low", variable: "clv", operator: "<", value: 0.25 },
+  { id: "return-minus-2", variable: "returnPct", operator: "<", value: -2 },
+  { id: "clv-low", variable: "clv", operator: "<=", value: -1 },
   { id: "below-dma20", variable: "closeOverDma20", operator: "<", value: 1 },
 ];
 
@@ -30,12 +30,12 @@ function newCondition(): ConditionRule {
     id: crypto.randomUUID ? crypto.randomUUID() : String(Date.now()),
     variable: "returnPct",
     operator: "<",
-    value: 0,
+    value: -2,
   };
 }
 
 function displayDailyReturn(value: number | null): string {
-  return value === null ? "-" : formatPct(value, 2);
+  return value === null ? "—" : formatPct(value / 100, 2);
 }
 
 export function ConditionExplorer({ bars }: { bars: DailyBar[] }) {

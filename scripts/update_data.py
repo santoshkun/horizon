@@ -125,7 +125,7 @@ def add_derived_fields(df: pd.DataFrame) -> pd.DataFrame:
     df["CLV"] = np.select(
         [
             df["Close"] >= (df["High"] - df["Range"] / 3),
-            df["Close"] <= (df["Low"] - df["Range"] / 3),
+            df["Close"] <= (df["Low"] + df["Range"] / 3),
         ],
         [1, -1],
         default=0,
