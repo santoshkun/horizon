@@ -8,7 +8,7 @@
       "returnBasis": "price-return",
       "dataFile": "nifty50.json",
       "startDate": "2007-09-17",
-      "lastUpdated": "2026-08-25"
+      "lastUpdated": "2026-08-26"
     }
   ]
 }
