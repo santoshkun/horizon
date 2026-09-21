@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import "./App.css";
 import type { RollingWindow, ReturnMode } from "./types";
-import { Header } from "./components/Header";
+import { Header, type ThemeId } from "./components/Header";
 import { KpiCards } from "./components/KpiCards";
 import { StatsTable } from "./components/StatsTable";
 import { HorizonComparisonTable } from "./components/HorizonComparisonTable";
@@ -26,6 +26,16 @@ function App() {
   const [selectedWindow, setSelectedWindow] = useState<RollingWindow | null>(null);
   const [expandedChartId, setExpandedChartId] = useState<string | null>(null);
   const [activeSection, setActiveSection] = useState<"dashboard" | "conditions">("dashboard");
+  const [theme, setTheme] = useState<ThemeId>(() => {
+    const saved = localStorage.getItem("horizon-theme");
+    return saved === "original" || saved === "refined" || saved === "bloomberg"
+      ? saved
+      : "original";
+  });
+
+  useEffect(() => {
+    localStorage.setItem("horizon-theme", theme);
+  }, [theme]);
 
   useEffect(() => {
     if (indices && indices.length > 0 && !selectedIndexId) {
@@ -73,7 +83,7 @@ function App() {
   const toggleChart = (id: string) => setExpandedChartId((current) => (current === id ? null : id));
 
   return (
-    <div className="app">
+    <div className="app" data-theme={theme}>
       <Header
         indices={indices}
         selectedIndexId={selectedMeta.id}
@@ -83,6 +93,8 @@ function App() {
         returnMode={returnMode}
         onChangeReturnMode={setReturnMode}
         showCagrToggle={showCagrToggle}
+        theme={theme}
+        onChangeTheme={setTheme}
       />
 
       <div className="dashboard">
@@ -94,7 +106,7 @@ function App() {
             type="button"
             onClick={() => setActiveSection("dashboard")}
           >
-            Dashboard
+            Overview
           </button>
           <button
             className={`pill ${activeSection === "conditions" ? "active" : ""}`}
@@ -126,7 +138,7 @@ function App() {
                     aria-pressed={expandedChartId === "return-distribution"}
                     onClick={() => toggleChart("return-distribution")}
                   >
-                    {expandedChartId === "return-distribution" ? "MIN" : "MAX"}
+                    {expandedChartId === "return-distribution" ? "↙" : "↗"}
                   </button>
                   <span className="panel-subtitle">{horizon.label} · historical frequency, not a forecast</span>
                 </div>
@@ -145,7 +157,7 @@ function App() {
                     aria-pressed={expandedChartId === "rolling-return"}
                     onClick={() => toggleChart("rolling-return")}
                   >
-                    {expandedChartId === "rolling-return" ? "MIN" : "MAX"}
+                    {expandedChartId === "rolling-return" ? "↙" : "↗"}
                   </button>
                   <span className="panel-subtitle">{horizon.label} window, by entry date</span>
                 </div>
@@ -168,7 +180,7 @@ function App() {
                     aria-pressed={expandedChartId === "return-drawdown"}
                     onClick={() => toggleChart("return-drawdown")}
                   >
-                    {expandedChartId === "return-drawdown" ? "MIN" : "MAX"}
+                    {expandedChartId === "return-drawdown" ? "↙" : "↗"}
                   </button>
                   <span className="panel-subtitle">what you made vs. what you had to endure — click a point</span>
                 </div>
@@ -188,7 +200,7 @@ function App() {
                     aria-pressed={expandedChartId === "drawdown-distribution"}
                     onClick={() => toggleChart("drawdown-distribution")}
                   >
-                    {expandedChartId === "drawdown-distribution" ? "MIN" : "MAX"}
+                    {expandedChartId === "drawdown-distribution" ? "↙" : "↗"}
                   </button>
                   <span className="panel-subtitle">max drawdown observed inside each {horizon.label} window</span>
                 </div>
@@ -209,7 +221,7 @@ function App() {
                   aria-pressed={expandedChartId === "price-history"}
                   onClick={() => toggleChart("price-history")}
                 >
-                  {expandedChartId === "price-history" ? "MIN" : "MAX"}
+                    {expandedChartId === "price-history" ? "↙" : "↗"}
                 </button>
                 <span className="panel-subtitle">{selectedMeta.name} · close with optional DMA overlays</span>
               </div>
@@ -223,7 +235,7 @@ function App() {
 
             <div className="panel">
               <div className="panel-header">
-                <span className="panel-title">Historical Horizon Comparison</span>
+                <span className="panel-title">Compare holding periods</span>
                 <span className="panel-subtitle">sortable · every supported horizon side by side</span>
               </div>
               <div style={{ overflowX: "auto" }}>
@@ -233,7 +245,7 @@ function App() {
 
             <div className="panel">
               <div className="panel-header">
-                <span className="panel-title">Historical Period Explorer</span>
+                <span className="panel-title">Inspect notable periods</span>
                 <span className="panel-subtitle">{horizon.label} horizon · click a card to highlight it on the price chart</span>
               </div>
               <PeriodExplorer
@@ -246,7 +258,7 @@ function App() {
 
             <div className="panel">
               <div className="panel-header">
-                <span className="panel-title">Detailed Statistics</span>
+                <span className="panel-title">Full statistics</span>
                 <span className="panel-subtitle">{selectedMeta.name} · {horizon.label}</span>
               </div>
               <StatsTable analysis={analysis} />

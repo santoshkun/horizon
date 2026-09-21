@@ -1,29 +1,29 @@
-@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap");
 
 :root {
   /* Surfaces */
-  --bg-0: #0a0d12; /* app background */
-  --bg-1: #10141b; /* panel background */
-  --bg-2: #161b24; /* raised panel / hover */
-  --border: #232a36;
-  --border-soft: #1a2029;
+  --bg-0: #0d1014; /* app background */
+  --bg-1: #14181d; /* panel background */
+  --bg-2: #1b2127; /* raised panel / hover */
+  --border: #2b333b;
+  --border-soft: #222a31;
 
   /* Text */
-  --text-primary: #e7ebf0;
-  --text-secondary: #8b96a8;
-  --text-tertiary: #5b6577;
+  --text-primary: #ede9df;
+  --text-secondary: #a5aaa8;
+  --text-tertiary: #707a7c;
 
   /* Signal colors — teal/rust/gold rather than the generic green/red terminal look */
-  --positive: #4fd1c5;
-  --positive-dim: #2c6e68;
-  --negative: #e8735c;
-  --negative-dim: #7a3c31;
-  --accent: #d4b96a; /* selected states, primary emphasis */
-  --accent-dim: #4a4022;
+  --positive: #72c5b5;
+  --positive-dim: #244c48;
+  --negative: #d9826d;
+  --negative-dim: #56342e;
+  --accent: #d7b56d; /* selected states, primary emphasis */
+  --accent-dim: #4b3d24;
 
   --radius: 3px;
   --mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
-  --sans: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --sans: "DM Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
 * {
